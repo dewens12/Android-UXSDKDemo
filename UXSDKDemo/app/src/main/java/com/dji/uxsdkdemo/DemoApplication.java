@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
@@ -16,6 +17,7 @@ import dji.common.useraccount.UserAccountState;
 import dji.common.util.CommonCallbacks;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
+import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.useraccount.UserAccountManager;
 
@@ -107,12 +109,19 @@ public class DemoApplication extends Application {
                 Log.d("TAG", "onProductDisconnect");
                 notifyStatusChange();
             }
+
             @Override
             public void onProductConnect(BaseProduct baseProduct) {
                 Log.d("TAG", String.format("onProductConnect newProduct:%s", baseProduct));
                 notifyStatusChange();
 
             }
+
+            @Override
+            public void onProductChanged(BaseProduct baseProduct) {
+
+            }
+
             @Override
             public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent,
                                           BaseComponent newComponent) {
@@ -132,6 +141,16 @@ public class DemoApplication extends Application {
                                 componentKey,
                                 oldComponent,
                                 newComponent));
+
+            }
+
+            @Override
+            public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
+
+            }
+
+            @Override
+            public void onDatabaseDownloadProgress(long l, long l1) {
 
             }
         };
